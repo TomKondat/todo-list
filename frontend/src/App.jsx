@@ -24,19 +24,25 @@ function App() {
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   };
 
+  const deleteTask = (e) => {
+    const id = e.target.value;
+    const updatedTasks = tasks.filter((task) => task._id !== parseInt(id));
+    setTasks(updatedTasks);
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+  };
+
   useEffect(() => {
     const tasks = JSON.parse(localStorage.getItem("tasks"));
     if (tasks) {
       setTasks(tasks);
     }
   }, []);
-  console.log(`tasks`, tasks);
 
   return (
     <>
       <Header handleAddTask={handleAddTask} />
       <div className="container">
-        <TaskList tasks={tasks} />
+        <TaskList tasks={tasks} deleteTask={deleteTask} />
       </div>
     </>
   );
