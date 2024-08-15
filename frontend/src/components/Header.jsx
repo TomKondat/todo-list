@@ -7,7 +7,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { useState } from "react";
 import Aside from "./Aside";
 
-const Header = () => {
+const Header = ({ handleAddTask }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -40,7 +40,11 @@ const Header = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Aside show={show} handleClose={handleClose} />
+      <Aside
+        show={show}
+        handleClose={handleClose}
+        handleAddTask={handleAddTask}
+      />
     </>
   );
 };
