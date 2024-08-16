@@ -3,9 +3,9 @@ import Accordion from "react-bootstrap/Accordion";
 import InputGroup from "react-bootstrap/InputGroup";
 import "./styles.css";
 import Button from "react-bootstrap/esm/Button";
-import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
 import DeleteModal from "./DeleteModal";
+import * as Icon from "react-bootstrap-icons";
 
 const TaskItem = ({
   _id,
@@ -38,11 +38,11 @@ const TaskItem = ({
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
-        <Button onClick={handleShow} variant="light">
-          ❌
+        <Button variant="outline-danger">
+          <Icon.Trash onClick={handleShow} />
         </Button>
-        <Button onClick={handleShow} variant="outline-info">
-          Edit
+        <Button onClick={handleShow} variant="outline-secondary">
+          <Icon.Pen />
         </Button>
       </InputGroup>
 
