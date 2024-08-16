@@ -14,8 +14,10 @@ const TaskItem = ({
   description,
   expirationDate,
   priority,
+  isCompleted,
   deleteTask,
   editTask,
+  addInline,
 }) => {
   //delete modal states
   const [show, setShow] = useState(false);
@@ -28,14 +30,28 @@ const TaskItem = ({
   const handleCloseEditModal = () => setShowEditModal(false);
   const handleShowEditModal = () => setShowEditModal(true);
   //-----------------------------------
-
+  const handleComplete = () => {
+    addInline(_id);
+  };
   return (
     <>
       <InputGroup className="mb-3">
-        <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-        <Accordion defaultActiveKey="1" className="custom-accordion">
+        <InputGroup.Checkbox
+          onChange={handleComplete}
+          checked={isCompleted}
+          aria-label="Checkbox for following text input"
+          className="accordion-style "
+        />
+        <Accordion
+          defaultActiveKey="1"
+          className="custom-accordion accordion-style"
+        >
           <Accordion.Item eventKey="0">
-            <Accordion.Header>{title}</Accordion.Header>
+            <Accordion.Header
+              className={isCompleted ? "completed-task" : "uncompleted-task"}
+            >
+              <strong> {title}</strong>
+            </Accordion.Header>
             <Accordion.Body>
               <p>
                 <strong>Description: </strong>
@@ -55,7 +71,6 @@ const TaskItem = ({
           <Icon.Pen />
         </Button>
       </InputGroup>
-
       <DeleteModal
         show={show}
         handleClose={handleClose}

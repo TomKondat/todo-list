@@ -12,3 +12,15 @@
   color: rgba(0, 68, 255, 0.759);
   text-decoration: underline;
 }
+
+.completed-task {
+  text-decoration: line-through;
+}
+
+.uncompleted-task {
+  text-decoration: none;
+}
+
+.accordion-style {
+  box-shadow: 0 0 0.4em rgba(0, 68, 255, 0.759);
+}

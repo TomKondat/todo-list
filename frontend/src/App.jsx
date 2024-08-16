@@ -18,6 +18,7 @@ function App() {
       description,
       expirationDate,
       priority,
+      isCompleted: false,
     };
     const updatedTasks = [...tasks, newTask];
     setTasks(updatedTasks);
@@ -54,6 +55,14 @@ function App() {
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   };
 
+  const addInline = (id) => {
+    const updatedTasks = tasks.map((task) =>
+      task._id === id ? { ...task, isCompleted: !task.isCompleted } : task
+    );
+    setTasks(updatedTasks);
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+  };
+
   useEffect(() => {
     const tasks = JSON.parse(localStorage.getItem("tasks"));
     if (tasks) {
@@ -65,7 +74,12 @@ function App() {
     <>
       <Header handleAddTask={handleAddTask} />
       <div className="container">
-        <TaskList tasks={tasks} deleteTask={deleteTask} editTask={editTask} />
+        <TaskList
+          tasks={tasks}
+          deleteTask={deleteTask}
+          editTask={editTask}
+          addInline={addInline}
+        />
       </div>
     </>
   );

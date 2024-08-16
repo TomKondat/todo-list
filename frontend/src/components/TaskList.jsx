@@ -1,7 +1,7 @@
 import React from "react";
 import TaskItem from "./TaskItem";
 
-const TaskList = ({ tasks, deleteTask, editTask }) => {
+const TaskList = ({ tasks, deleteTask, editTask, addInline }) => {
   return (
     <div>
       <div className="header-title">
@@ -15,8 +15,10 @@ const TaskList = ({ tasks, deleteTask, editTask }) => {
           description={task.description}
           expirationDate={task.expirationDate}
           priority={task.priority}
+          isCompleted={task.isCompleted}
           deleteTask={deleteTask}
           editTask={editTask}
+          addInline={addInline}
         />
       ))}
     </div>
