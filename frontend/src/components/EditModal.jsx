@@ -2,12 +2,15 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-
+import * as Icon from "react-bootstrap-icons";
 const EditModal = ({ showEditModal, handleCloseEditModal, editTask, _id }) => {
   return (
     <Modal show={showEditModal} onHide={handleCloseEditModal}>
       <Modal.Header closeButton>
-        <Modal.Title>Edit</Modal.Title>
+        <Modal.Title>
+          Edit &nbsp;
+          <Icon.PencilSquare color="green" />
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {/* form */}

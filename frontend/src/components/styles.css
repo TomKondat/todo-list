@@ -5,6 +5,21 @@
 .custom-accordion {
   width: 80%;
 }
+.adjust-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.custom-nav {
+  display: inline-flex;
+  background-color: rgba(0, 68, 255, 0.129);
+  margin-bottom: 50px;
+  border-radius: 7px;
+}
+.custom-nav button {
+  margin: 10px;
+}
+
 .header-title {
   text-align: center;
   margin-top: 40px;

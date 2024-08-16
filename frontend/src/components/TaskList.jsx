@@ -4,9 +4,6 @@ import TaskItem from "./TaskItem";
 const TaskList = ({ tasks, deleteTask, editTask, addInline }) => {
   return (
     <div>
-      <div className="header-title">
-        <h1>My Todos</h1>
-      </div>
       {tasks?.map((task) => (
         <TaskItem
           key={task._id}

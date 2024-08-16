@@ -68,7 +68,7 @@ const TaskItem = ({
           <Icon.Trash />
         </Button>
         <Button onClick={handleShowEditModal} variant="outline-secondary">
-          <Icon.Pen />
+          <Icon.Pencil />
         </Button>
       </InputGroup>
       <DeleteModal

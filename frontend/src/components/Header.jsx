@@ -23,11 +23,7 @@ const Header = ({ handleAddTask }) => {
               className="me-auto my-2 my-lg-0"
               style={{ maxHeight: "100px" }}
               navbarScroll
-            >
-              <Button onClick={handleShow} variant="outline-dark">
-                Add new task
-              </Button>
-            </Nav>
+            ></Nav>
             <Form className="d-flex">
               <Form.Control
                 type="search"
@@ -40,6 +36,22 @@ const Header = ({ handleAddTask }) => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <div className="header-title">
+        <h1>My Todos</h1>
+      </div>
+      <div className="adjust-center">
+        <div className="custom-nav">
+          <Button
+            onClick={handleShow}
+            variant="outline-primary"
+            className="me-2"
+          >
+            Add new task
+          </Button>
+          <Button variant="outline-primary">Show Uncomplete</Button>
+          <Button>Show Completed</Button>
+        </div>
+      </div>
       <Aside
         show={show}
         handleClose={handleClose}
