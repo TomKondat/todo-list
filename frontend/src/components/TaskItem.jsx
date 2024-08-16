@@ -5,6 +5,7 @@ import "./styles.css";
 import Button from "react-bootstrap/esm/Button";
 import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
+import DeleteModal from "./DeleteModal";
 
 const TaskItem = ({
   _id,
@@ -26,30 +27,31 @@ const TaskItem = ({
           <Accordion.Item eventKey="0">
             <Accordion.Header>{title}</Accordion.Header>
             <Accordion.Body>
-              <p>{description}</p>
-              <p>{expirationDate}</p>
+              <p>
+                <strong>Description: </strong>
+                {description}
+              </p>
+              <p>
+                <strong>Expiration Date: </strong>
+                {expirationDate}
+              </p>
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
         <Button onClick={handleShow} variant="light">
           ❌
         </Button>
+        <Button onClick={handleShow} variant="outline-info">
+          Edit
+        </Button>
       </InputGroup>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Delete</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Are you sure you want to delete?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="danger" onClick={deleteTask} value={_id}>
-            Delete Task
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <DeleteModal
+        show={show}
+        handleClose={handleClose}
+        deleteTask={deleteTask}
+        _id={_id}
+      />
     </>
   );
 };
