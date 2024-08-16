@@ -31,6 +31,29 @@ function App() {
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   };
 
+  const editTask = (e) => {
+    e.preventDefault();
+    const _id = e.target.value;
+    const title = e.target.form[0].value;
+    const description = e.target.form[1].value;
+    const expirationDate = e.target.form[2].value;
+    console.log(`title: ${title}`);
+
+    const updatedTasks = tasks.map((task) => {
+      if (task._id === parseInt(_id)) {
+        return {
+          ...task,
+          title,
+          description,
+          expirationDate,
+        };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+  };
+
   useEffect(() => {
     const tasks = JSON.parse(localStorage.getItem("tasks"));
     if (tasks) {
@@ -42,7 +65,7 @@ function App() {
     <>
       <Header handleAddTask={handleAddTask} />
       <div className="container">
-        <TaskList tasks={tasks} deleteTask={deleteTask} />
+        <TaskList tasks={tasks} deleteTask={deleteTask} editTask={editTask} />
       </div>
     </>
   );

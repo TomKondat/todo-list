@@ -6,6 +6,7 @@ import Button from "react-bootstrap/esm/Button";
 import { useState } from "react";
 import DeleteModal from "./DeleteModal";
 import * as Icon from "react-bootstrap-icons";
+import EditModal from "./EditModal";
 
 const TaskItem = ({
   _id,
@@ -14,11 +15,20 @@ const TaskItem = ({
   expirationDate,
   priority,
   deleteTask,
+  editTask,
 }) => {
+  //delete modal states
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  //-----------------------------------
+
+  //edit modal states
+  const [showEditModal, setShowEditModal] = useState(false);
+  const handleCloseEditModal = () => setShowEditModal(false);
+  const handleShowEditModal = () => setShowEditModal(true);
+  //-----------------------------------
+
   return (
     <>
       <InputGroup className="mb-3">
@@ -33,15 +43,15 @@ const TaskItem = ({
               </p>
               <p>
                 <strong>Expiration Date: </strong>
-                {expirationDate}
+                {new Date(expirationDate).toLocaleDateString()}
               </p>
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
-        <Button variant="outline-danger">
-          <Icon.Trash onClick={handleShow} />
+        <Button onClick={handleShow} variant="outline-danger">
+          <Icon.Trash />
         </Button>
-        <Button onClick={handleShow} variant="outline-secondary">
+        <Button onClick={handleShowEditModal} variant="outline-secondary">
           <Icon.Pen />
         </Button>
       </InputGroup>
@@ -50,6 +60,13 @@ const TaskItem = ({
         show={show}
         handleClose={handleClose}
         deleteTask={deleteTask}
+        _id={_id}
+      />
+
+      <EditModal
+        showEditModal={showEditModal}
+        handleCloseEditModal={handleCloseEditModal}
+        editTask={editTask}
         _id={_id}
       />
     </>
