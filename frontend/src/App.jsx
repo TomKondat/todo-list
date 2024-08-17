@@ -20,7 +20,10 @@ function App() {
       priority,
       isCompleted: false,
     };
-    const updatedTasks = [...tasks, newTask];
+
+    const updatedTasks = [...tasks, newTask].sort((a, b) => {
+      return new Date(a.expirationDate) - new Date(b.expirationDate);
+    });
     setTasks(updatedTasks);
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   };
@@ -40,17 +43,21 @@ function App() {
     const expirationDate = e.target.form[2].value;
     console.log(`title: ${title}`);
 
-    const updatedTasks = tasks.map((task) => {
-      if (task._id === parseInt(_id)) {
-        return {
-          ...task,
-          title,
-          description,
-          expirationDate,
-        };
-      }
-      return task;
-    });
+    const updatedTasks = tasks
+      .map((task) => {
+        if (task._id === parseInt(_id)) {
+          return {
+            ...task,
+            title,
+            description,
+            expirationDate,
+          };
+        }
+        return task;
+      })
+      .sort((a, b) => {
+        return new Date(a.expirationDate) - new Date(b.expirationDate);
+      });
     setTasks(updatedTasks);
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   };

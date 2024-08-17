@@ -16,6 +16,15 @@ const Header = ({ handleAddTask }) => {
     <>
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
+          <Navbar.Brand>
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/4697/4697260.png"
+              width="60"
+              height="60"
+              className="d-inline-block align-top"
+              alt="React Bootstrap logo"
+            />
+          </Navbar.Brand>
           <Navbar.Brand>Todo List</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
@@ -41,15 +50,15 @@ const Header = ({ handleAddTask }) => {
       </div>
       <div className="adjust-center">
         <div className="custom-nav">
-          <Button
-            onClick={handleShow}
-            variant="outline-primary"
-            className="me-2"
-          >
-            Add new task
+          <Button onClick={handleShow} variant="light" className="me-lg-5">
+            <img
+              src="https://cdn2.iconfinder.com/data/icons/interface-solid-7/30/interface-solid-task-add-512.png"
+              width="50"
+              height="50"
+            />
           </Button>
           <Button variant="outline-primary">Show Uncomplete</Button>
-          <Button>Show Completed</Button>
+          <Button variant="outline-primary">Show Completed</Button>
         </div>
       </div>
       <Aside
