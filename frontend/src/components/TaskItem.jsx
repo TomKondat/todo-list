@@ -50,16 +50,34 @@ const TaskItem = ({
             <Accordion.Header
               className={isCompleted ? "completed-task" : "uncompleted-task"}
             >
-              <strong> {title}</strong>
+              <strong
+                className={
+                  priority === "1"
+                    ? "not-important"
+                    : priority === "2"
+                    ? "important"
+                    : "very-important"
+                }
+              >
+                {title}
+              </strong>
             </Accordion.Header>
             <Accordion.Body>
               <p>
-                <strong>Description: </strong>
-                {description}
+                <strong>Priority: </strong>
+                {priority === "1"
+                  ? "Not Important"
+                  : priority === "2"
+                  ? "Important"
+                  : "Very Important"}
               </p>
               <p>
                 <strong>Expiration Date: </strong>
                 {new Date(expirationDate).toLocaleDateString()}
+              </p>
+              <p>
+                <strong>Description: </strong>
+                {description}
               </p>
             </Accordion.Body>
           </Accordion.Item>

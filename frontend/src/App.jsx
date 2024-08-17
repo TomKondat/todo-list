@@ -41,8 +41,7 @@ function App() {
     const title = e.target.form[0].value;
     const description = e.target.form[1].value;
     const expirationDate = e.target.form[2].value;
-    console.log(`title: ${title}`);
-
+    const priority = e.target.form[3].value;
     const updatedTasks = tasks
       .map((task) => {
         if (task._id === parseInt(_id)) {
@@ -51,6 +50,7 @@ function App() {
             title,
             description,
             expirationDate,
+            priority,
           };
         }
         return task;

@@ -41,10 +41,9 @@ const EditModal = ({ showEditModal, handleCloseEditModal, editTask, _id }) => {
 
           <Form.Group className="mb-3" controlId="priorityId">
             <Form.Select aria-label="Default select example">
-              <option>Choose Priority</option>
-              <option value="1">Very Important</option>
+              <option value="1">Not Important</option>
               <option value="2">Important</option>
-              <option value="3">Not Important</option>
+              <option value="3">Very Important</option>
             </Form.Select>
           </Form.Group>
           <Modal.Footer>
