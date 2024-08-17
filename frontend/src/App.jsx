@@ -4,7 +4,7 @@ import TaskList from "./components/TaskList";
 
 function App() {
   const [tasks, setTasks] = useState([]);
-
+  const [filteredTasks, setFilteredTasks] = useState([]);
   const handleAddTask = (e) => {
     e.preventDefault();
     const _id = Math.floor(Math.random() * 10000) + 1;
@@ -70,6 +70,20 @@ function App() {
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   };
 
+  const showUncompletedTasks = () => {
+    const uncompletedTasks = tasks.filter((task) => !task.isCompleted);
+    setFilteredTasks(uncompletedTasks);
+  };
+
+  const showCompletedTasks = () => {
+    const completedTasks = tasks.filter((task) => task.isCompleted);
+    setFilteredTasks(completedTasks);
+  };
+
+  const showAllTasks = () => {
+    setFilteredTasks([]);
+  };
+
   useEffect(() => {
     const tasks = JSON.parse(localStorage.getItem("tasks"));
     if (tasks) {
@@ -79,10 +93,15 @@ function App() {
 
   return (
     <>
-      <Header handleAddTask={handleAddTask} />
+      <Header
+        handleAddTask={handleAddTask}
+        showUncompletedTasks={showUncompletedTasks}
+        showCompletedTasks={showCompletedTasks}
+        showAllTasks={showAllTasks}
+      />
       <div className="container">
         <TaskList
-          tasks={tasks}
+          tasks={filteredTasks.length > 0 ? filteredTasks : tasks}
           deleteTask={deleteTask}
           editTask={editTask}
           addInline={addInline}

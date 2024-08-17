@@ -7,7 +7,12 @@ import Navbar from "react-bootstrap/Navbar";
 import { useState } from "react";
 import Aside from "./Aside";
 
-const Header = ({ handleAddTask }) => {
+const Header = ({
+  handleAddTask,
+  showUncompletedTasks,
+  showCompletedTasks,
+  showAllTasks,
+}) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -53,12 +58,19 @@ const Header = ({ handleAddTask }) => {
           <Button onClick={handleShow} variant="light" className="me-lg-5">
             <img
               src="https://cdn2.iconfinder.com/data/icons/interface-solid-7/30/interface-solid-task-add-512.png"
-              width="50"
-              height="50"
+              width="35"
+              height="35"
             />
           </Button>
-          <Button variant="outline-primary">Show Uncomplete</Button>
-          <Button variant="outline-primary">Show Completed</Button>
+          <Button onClick={showAllTasks} variant="outline-secondary">
+            All Todos
+          </Button>
+          <Button onClick={showUncompletedTasks} variant="outline-primary">
+            Uncomplete Todos
+          </Button>
+          <Button onClick={showCompletedTasks} variant="outline-primary">
+            Completed Todos
+          </Button>
         </div>
       </div>
       <Aside
