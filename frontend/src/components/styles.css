@@ -58,3 +58,9 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.custom-tooltip .tooltip-inner {
+  background-color: #f8f9fa;
+  color: gray;
+  border: 1px solid darkgray;
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import TaskItem from "./TaskItem";
-import Button from "react-bootstrap/Button";
+import { Button, Tooltip, OverlayTrigger } from "react-bootstrap";
 import TodoContext from "../context/todos";
 import { useContext } from "react";
 import * as Icon from "react-bootstrap-icons";
@@ -18,25 +18,74 @@ const TaskList = () => {
     <>
       <div className="adjust-center">
         <div className="custom-nav">
-          <Button
-            onClick={showAllTasks}
-            variant="outline-secondary"
-            className="me-5"
+          <OverlayTrigger
+            placement="top"
+            overlay={
+              <Tooltip id="tooltip-all" className="custom-tooltip">
+                Show All Todos
+              </Tooltip>
+            }
           >
-            All Todos
-          </Button>
-          <Button onClick={showImportantTasks} variant="outline-danger">
-            <Icon.SortDown width="35" height="30" />
-          </Button>
-          <Button onClick={showUnimportantTasks} variant="outline-success">
-            <Icon.SortUpAlt width="35" height="30" />
-          </Button>
-          <Button onClick={showUncompletedTasks} variant="outline-primary">
-            Uncomplete Todos
-          </Button>
-          <Button onClick={showCompletedTasks} variant="outline-primary">
-            Completed Todos
-          </Button>
+            <Button
+              onClick={showAllTasks}
+              variant="outline-secondary"
+              className="me-5"
+            >
+              <Icon.ListUl width="35" height="30" />
+            </Button>
+          </OverlayTrigger>
+
+          <OverlayTrigger
+            placement="top"
+            overlay={
+              <Tooltip id="tooltip-all" className="custom-tooltip">
+                Sort Most Important
+              </Tooltip>
+            }
+          >
+            <Button onClick={showImportantTasks} variant="outline-danger">
+              <Icon.SortDown width="35" height="30" />
+            </Button>
+          </OverlayTrigger>
+
+          <OverlayTrigger
+            placement="top"
+            overlay={
+              <Tooltip id="tooltip-all" className="custom-tooltip">
+                Sort Least Important
+              </Tooltip>
+            }
+          >
+            <Button onClick={showUnimportantTasks} variant="outline-success">
+              <Icon.SortUpAlt width="35" height="30" />
+            </Button>
+          </OverlayTrigger>
+
+          <OverlayTrigger
+            placement="top"
+            overlay={
+              <Tooltip id="tooltip-all" className="custom-tooltip">
+                Show Uncompleted Todos
+              </Tooltip>
+            }
+          >
+            <Button onClick={showUncompletedTasks} variant="outline-primary">
+              <Icon.Square width="35" height="30" />
+            </Button>
+          </OverlayTrigger>
+
+          <OverlayTrigger
+            placement="top"
+            overlay={
+              <Tooltip id="tooltip-all" className="custom-tooltip">
+                Show Completed Todos
+              </Tooltip>
+            }
+          >
+            <Button onClick={showCompletedTasks} variant="outline-primary">
+              <Icon.CheckSquare width="35" height="30" />
+            </Button>
+          </OverlayTrigger>
         </div>
       </div>
       <div>

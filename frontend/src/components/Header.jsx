@@ -1,9 +1,14 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
+import {
+  Form,
+  Tooltip,
+  OverlayTrigger,
+  Nav,
+  Navbar,
+  Button,
+  Container,
+} from "react-bootstrap";
+
 import { useState } from "react";
 import Aside from "./Aside";
 
@@ -26,7 +31,6 @@ const Header = () => {
             />
           </Navbar.Brand>
           <Navbar.Brand>Todo List</Navbar.Brand>
-
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -34,13 +38,23 @@ const Header = () => {
               style={{ maxHeight: "100px" }}
               navbarScroll
             ></Nav>
-            <Button onClick={handleShow} variant="light" className="me-lg-5">
-              <img
-                src="https://cdn2.iconfinder.com/data/icons/interface-solid-7/30/interface-solid-task-add-512.png"
-                width="35"
-                height="35"
-              />
-            </Button>
+            <OverlayTrigger
+              placement="bottom"
+              overlay={
+                <Tooltip id="tooltip-all" className="custom-tooltip">
+                  Add New Todo
+                </Tooltip>
+              }
+            >
+              <Button onClick={handleShow} variant="light" className="me-lg-5">
+                <img
+                  src="https://cdn2.iconfinder.com/data/icons/interface-solid-7/30/interface-solid-task-add-512.png"
+                  width="35"
+                  height="35"
+                />
+              </Button>
+            </OverlayTrigger>
+
             <Form className="d-flex">
               <Form.Control
                 type="search"
