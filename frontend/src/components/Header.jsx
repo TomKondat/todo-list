@@ -7,12 +7,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { useState } from "react";
 import Aside from "./Aside";
 
-const Header = ({
-  handleAddTask,
-  showUncompletedTasks,
-  showCompletedTasks,
-  showAllTasks,
-}) => {
+const Header = ({ handleAddTask }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -31,6 +26,7 @@ const Header = ({
             />
           </Navbar.Brand>
           <Navbar.Brand>Todo List</Navbar.Brand>
+
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -38,6 +34,13 @@ const Header = ({
               style={{ maxHeight: "100px" }}
               navbarScroll
             ></Nav>
+            <Button onClick={handleShow} variant="light" className="me-lg-5">
+              <img
+                src="https://cdn2.iconfinder.com/data/icons/interface-solid-7/30/interface-solid-task-add-512.png"
+                width="35"
+                height="35"
+              />
+            </Button>
             <Form className="d-flex">
               <Form.Control
                 type="search"
@@ -53,26 +56,7 @@ const Header = ({
       <div className="header-title">
         <h1>My Todos</h1>
       </div>
-      <div className="adjust-center">
-        <div className="custom-nav">
-          <Button onClick={handleShow} variant="light" className="me-lg-5">
-            <img
-              src="https://cdn2.iconfinder.com/data/icons/interface-solid-7/30/interface-solid-task-add-512.png"
-              width="35"
-              height="35"
-            />
-          </Button>
-          <Button onClick={showAllTasks} variant="outline-secondary">
-            All Todos
-          </Button>
-          <Button onClick={showUncompletedTasks} variant="outline-primary">
-            Uncomplete Todos
-          </Button>
-          <Button onClick={showCompletedTasks} variant="outline-primary">
-            Completed Todos
-          </Button>
-        </div>
-      </div>
+
       <Aside
         show={show}
         handleClose={handleClose}

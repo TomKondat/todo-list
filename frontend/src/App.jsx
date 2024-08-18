@@ -93,18 +93,16 @@ function App() {
 
   return (
     <>
-      <Header
-        handleAddTask={handleAddTask}
-        showUncompletedTasks={showUncompletedTasks}
-        showCompletedTasks={showCompletedTasks}
-        showAllTasks={showAllTasks}
-      />
+      <Header handleAddTask={handleAddTask} />
       <div className="container">
         <TaskList
           tasks={filteredTasks.length > 0 ? filteredTasks : tasks}
           deleteTask={deleteTask}
           editTask={editTask}
           addInline={addInline}
+          showUncompletedTasks={showUncompletedTasks}
+          showCompletedTasks={showCompletedTasks}
+          showAllTasks={showAllTasks}
         />
       </div>
     </>
