@@ -6,7 +6,6 @@ import { useContext } from "react";
 import * as Icon from "react-bootstrap-icons";
 const TaskList = () => {
   const {
-    tasks,
     filteredTasks,
     showUncompletedTasks,
     showCompletedTasks,
@@ -14,8 +13,6 @@ const TaskList = () => {
     showImportantTasks,
     showUnimportantTasks,
   } = useContext(TodoContext);
-
-  const displayTasks = filteredTasks.length > 0 ? filteredTasks : tasks;
 
   return (
     <>
@@ -43,7 +40,7 @@ const TaskList = () => {
         </div>
       </div>
       <div>
-        {displayTasks?.map((task) => (
+        {filteredTasks?.map((task) => (
           <TaskItem
             key={task._id}
             _id={task._id}

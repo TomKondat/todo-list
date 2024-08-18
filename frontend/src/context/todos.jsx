@@ -1,10 +1,14 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const TodoContext = createContext();
 
 const Provider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
+
+  useEffect(() => {
+    setFilteredTasks(tasks);
+  }, [tasks]);
 
   const addTask = (e) => {
     e.preventDefault();
