@@ -7,6 +7,8 @@ import { useState } from "react";
 import DeleteModal from "./DeleteModal";
 import * as Icon from "react-bootstrap-icons";
 import EditModal from "./EditModal";
+import TodoContext from "../context/todos";
+import { useContext } from "react";
 
 const TaskItem = ({
   _id,
@@ -15,10 +17,8 @@ const TaskItem = ({
   expirationDate,
   priority,
   isCompleted,
-  deleteTask,
-  editTask,
-  addInline,
 }) => {
+  const { addInline } = useContext(TodoContext);
   //delete modal states
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -89,17 +89,11 @@ const TaskItem = ({
           <Icon.Pencil />
         </Button>
       </InputGroup>
-      <DeleteModal
-        show={show}
-        handleClose={handleClose}
-        deleteTask={deleteTask}
-        _id={_id}
-      />
+      <DeleteModal show={show} handleClose={handleClose} _id={_id} />
 
       <EditModal
         showEditModal={showEditModal}
         handleCloseEditModal={handleCloseEditModal}
-        editTask={editTask}
         _id={_id}
       />
     </>

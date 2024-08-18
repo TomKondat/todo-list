@@ -2,7 +2,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import TaskForm from "./TaskForm";
 import * as Icon from "react-bootstrap-icons";
 
-const Aside = ({ show, handleClose, handleAddTask }) => {
+const Aside = ({ show, handleClose }) => {
   return (
     <Offcanvas show={show} onHide={handleClose}>
       <Offcanvas.Header closeButton>
@@ -12,7 +12,7 @@ const Aside = ({ show, handleClose, handleAddTask }) => {
         </Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <TaskForm handleAddTask={handleAddTask} />
+        <TaskForm />
       </Offcanvas.Body>
     </Offcanvas>
   );

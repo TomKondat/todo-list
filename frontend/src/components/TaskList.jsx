@@ -1,16 +1,20 @@
 import React from "react";
 import TaskItem from "./TaskItem";
 import Button from "react-bootstrap/Button";
+import TodoContext from "../context/todos";
+import { useContext } from "react";
 
-const TaskList = ({
-  tasks,
-  deleteTask,
-  editTask,
-  addInline,
-  showUncompletedTasks,
-  showCompletedTasks,
-  showAllTasks,
-}) => {
+const TaskList = () => {
+  const {
+    tasks,
+    filteredTasks,
+    showUncompletedTasks,
+    showCompletedTasks,
+    showAllTasks,
+  } = useContext(TodoContext);
+
+  const displayTasks = filteredTasks.length > 0 ? filteredTasks : tasks;
+
   return (
     <>
       <div className="adjust-center">
@@ -27,7 +31,7 @@ const TaskList = ({
         </div>
       </div>
       <div>
-        {tasks?.map((task) => (
+        {displayTasks?.map((task) => (
           <TaskItem
             key={task._id}
             _id={task._id}
@@ -36,9 +40,6 @@ const TaskList = ({
             expirationDate={task.expirationDate}
             priority={task.priority}
             isCompleted={task.isCompleted}
-            deleteTask={deleteTask}
-            editTask={editTask}
-            addInline={addInline}
           />
         ))}
       </div>

@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import TodoContext from "../context/todos";
 
-const TaskForm = ({ handleAddTask }) => {
+const TaskForm = () => {
+  const { addTask } = useContext(TodoContext);
+
   return (
     <Form>
       <Form.Group className="mb-3" controlId="titleId">
@@ -33,7 +36,7 @@ const TaskForm = ({ handleAddTask }) => {
         </Form.Select>
       </Form.Group>
 
-      <Button onClick={handleAddTask} variant="primary" type="submit">
+      <Button onClick={addTask} variant="primary" type="submit">
         Add Task
       </Button>
     </Form>
