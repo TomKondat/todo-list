@@ -3,7 +3,7 @@ import TaskItem from "./TaskItem";
 import Button from "react-bootstrap/Button";
 import TodoContext from "../context/todos";
 import { useContext } from "react";
-
+import * as Icon from "react-bootstrap-icons";
 const TaskList = () => {
   const {
     tasks,
@@ -29,10 +29,10 @@ const TaskList = () => {
             All Todos
           </Button>
           <Button onClick={showImportantTasks} variant="outline-danger">
-            Most Important
+            <Icon.SortDown width="35" height="30" />
           </Button>
           <Button onClick={showUnimportantTasks} variant="outline-success">
-            Least Important
+            <Icon.SortUpAlt width="35" height="30" />
           </Button>
           <Button onClick={showUncompletedTasks} variant="outline-primary">
             Uncomplete Todos
