@@ -22,11 +22,10 @@ const Provider = ({ children }) => {
       isCompleted: false,
     };
 
-    const updatedTasks = [...tasks, newTask].sort((a, b) => {
-      return new Date(a.expirationDate) - new Date(b.expirationDate);
-    });
-    setTasks(updatedTasks);
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    const updatedTasks = [...tasks, newTask];
+    const sorted = sortByExpirationDate(updatedTasks);
+    setTasks(sorted);
+    localStorage.setItem("tasks", JSON.stringify(sorted));
   };
   const deleteTask = (e) => {
     const id = e.target.value;
@@ -42,24 +41,21 @@ const Provider = ({ children }) => {
     const description = e.target.form[1].value;
     const expirationDate = e.target.form[2].value;
     const priority = e.target.form[3].value;
-    const updatedTasks = tasks
-      .map((task) => {
-        if (task._id === parseInt(_id)) {
-          return {
-            ...task,
-            title,
-            description,
-            expirationDate,
-            priority,
-          };
-        }
-        return task;
-      })
-      .sort((a, b) => {
-        return new Date(a.expirationDate) - new Date(b.expirationDate);
-      });
-    setTasks(updatedTasks);
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    const updatedTasks = tasks.map((task) => {
+      if (task._id === parseInt(_id)) {
+        return {
+          ...task,
+          title,
+          description,
+          expirationDate,
+          priority,
+        };
+      }
+      return task;
+    });
+    const sorted = sortByExpirationDate(updatedTasks);
+    setTasks(sorted);
+    localStorage.setItem("tasks", JSON.stringify(sorted));
   };
 
   const addInline = (id) => {
@@ -80,8 +76,25 @@ const Provider = ({ children }) => {
     setFilteredTasks(completedTasks);
   };
 
+  const showImportantTasks = () => {
+    tasks.sort((a, b) => b.priority - a.priority);
+    setFilteredTasks([...tasks]);
+  };
+
+  const showUnimportantTasks = () => {
+    tasks.sort((a, b) => a.priority - b.priority);
+    setFilteredTasks([...tasks]);
+  };
+
   const showAllTasks = () => {
-    setFilteredTasks([]);
+    const sorted = sortByExpirationDate(tasks);
+    setFilteredTasks(sorted);
+  };
+
+  const sortByExpirationDate = (tasks) => {
+    return tasks.sort((a, b) => {
+      return new Date(a.expirationDate) - new Date(b.expirationDate);
+    });
   };
 
   const getTasks = () => {
@@ -102,6 +115,8 @@ const Provider = ({ children }) => {
     showCompletedTasks,
     showAllTasks,
     deleteTask,
+    showImportantTasks,
+    showUnimportantTasks,
   };
   return (
     <TodoContext.Provider value={sharedVaribles}>

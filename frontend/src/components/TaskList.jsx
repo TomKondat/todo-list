@@ -11,6 +11,8 @@ const TaskList = () => {
     showUncompletedTasks,
     showCompletedTasks,
     showAllTasks,
+    showImportantTasks,
+    showUnimportantTasks,
   } = useContext(TodoContext);
 
   const displayTasks = filteredTasks.length > 0 ? filteredTasks : tasks;
@@ -19,8 +21,18 @@ const TaskList = () => {
     <>
       <div className="adjust-center">
         <div className="custom-nav">
-          <Button onClick={showAllTasks} variant="outline-secondary">
+          <Button
+            onClick={showAllTasks}
+            variant="outline-secondary"
+            className="me-5"
+          >
             All Todos
+          </Button>
+          <Button onClick={showImportantTasks} variant="outline-danger">
+            Most Important
+          </Button>
+          <Button onClick={showUnimportantTasks} variant="outline-success">
+            Least Important
           </Button>
           <Button onClick={showUncompletedTasks} variant="outline-primary">
             Uncomplete Todos
