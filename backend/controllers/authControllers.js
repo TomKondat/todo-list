@@ -62,7 +62,12 @@ exports.logout = asyncHandler(async (req, res, next) => {
     expires: new Date(0), // Set expiration date to a time in the past
     secure: true,
   });
-  res.status(200).json({ status: "success" });
+  res
+    .status(200)
+    .json({
+      status: "success",
+      message: "You have been logged out successfully",
+    });
 });
 
 exports.protect = asyncHandler(async (req, res, next) => {

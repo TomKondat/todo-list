@@ -8,8 +8,8 @@ router.route("/").get(userControllers.getUsers);
 router.route("/:id").get(userControllers.getUserById);
 
 router.route("/register").post(authControllers.register);
-// router.route("/login").post(authControllers.login);
-// router.route("/logout").delete(authControllers.logout);
+router.route("/login").post(authControllers.login);
+router.route("/logout").delete(authControllers.logout);
 
 // router.post("/forgotPassword", authControllers.forgotPassword);
 // router.post("/resetPassword/:plainResetToken", authControllers.resetPassword);
