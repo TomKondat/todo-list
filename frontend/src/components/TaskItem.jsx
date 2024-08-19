@@ -42,10 +42,10 @@ const TaskItem = ({
           aria-label="Checkbox for following text input"
           className={
             priority === "1"
-              ? "accordion-style-not-important custom-accordion"
+              ? "accordion-style-not-important"
               : priority === "2"
-              ? "accordion-style-important custom-accordion"
-              : "accordion-style-very-important custom-accordion"
+              ? "accordion-style-important "
+              : "accordion-style-very-important "
           }
         />
 

@@ -39,14 +39,20 @@
 
 .accordion-style-very-important {
   box-shadow: 0 0 0.3em red;
+  background-color: #ffcccc;
+  padding: 5px;
 }
 
 .accordion-style-important {
   box-shadow: 0 0 0.3em orange;
+  background-color: #ffe5cc;
+  padding: 5px;
 }
 
 .accordion-style-not-important {
   box-shadow: 0 0 0.3em green;
+  background-color: #ccffcc;
+  padding: 5px;
 }
 
 .very-important {
@@ -62,7 +68,7 @@
 }
 
 .not-important {
-  background: linear-gradient(to right, green, rgba(34, 243, 59, 0.815));
+  background: linear-gradient(to right, green, rgba(34, 243, 58, 0.942));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
