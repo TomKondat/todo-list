@@ -3,6 +3,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const todoRoutes = require("./routes/todo.Routes");
+const userRoutes = require("./routes/user.Routes");
 const AppError = require("./utils/AppError");
 const globalErrorHandler = require("./utils/errorHandler");
 const app = express();
@@ -17,6 +18,7 @@ app.use(cors(corsOptions));
 app.use(express.static("public"));
 
 app.use("/api/todos", todoRoutes);
+app.use("/api/users", userRoutes);
 
 app.all("*", (req, res, next) => {
   next(new AppError(550, "The route can not be found"));
