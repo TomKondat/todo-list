@@ -37,8 +37,16 @@
   text-decoration: none;
 }
 
-.accordion-style {
-  box-shadow: 0 0 0.4em rgba(0, 68, 255, 0.759);
+.accordion-style-very-important {
+  box-shadow: 0 0 0.3em red;
+}
+
+.accordion-style-important {
+  box-shadow: 0 0 0.3em orange;
+}
+
+.accordion-style-not-important {
+  box-shadow: 0 0 0.3em green;
 }
 
 .very-important {

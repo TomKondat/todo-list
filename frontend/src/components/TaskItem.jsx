@@ -40,11 +40,24 @@ const TaskItem = ({
           onChange={handleComplete}
           checked={isCompleted}
           aria-label="Checkbox for following text input"
-          className="accordion-style "
+          className={
+            priority === "1"
+              ? "accordion-style-not-important custom-accordion"
+              : priority === "2"
+              ? "accordion-style-important custom-accordion"
+              : "accordion-style-very-important custom-accordion"
+          }
         />
+
         <Accordion
           defaultActiveKey="1"
-          className="custom-accordion accordion-style"
+          className={
+            priority === "1"
+              ? "accordion-style-not-important custom-accordion"
+              : priority === "2"
+              ? "accordion-style-important custom-accordion"
+              : "accordion-style-very-important custom-accordion"
+          }
         >
           <Accordion.Item eventKey="0">
             <Accordion.Header
@@ -82,6 +95,7 @@ const TaskItem = ({
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
+
         <Button onClick={handleShow} variant="outline-danger">
           <Icon.Trash />
         </Button>
