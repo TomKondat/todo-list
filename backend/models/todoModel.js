@@ -5,6 +5,7 @@ const todoSchema = new mongoose.Schema({
   priority: { type: String, required: true },
   expirationDate: { type: Date, required: true },
   description: { type: String, required: true },
+  isCompleted: { type: Boolean, default: false },
 });
 
 const Todo = mongoose.model("Todo", todoSchema);
