@@ -1,8 +1,14 @@
 import { createContext, useState, useEffect } from "react";
+import { useGetTodosQuery } from "./../slices/todoApiSlice";
 
 const TodoContext = createContext();
 
-const Provider = ({ children }) => {
+const TodoProvider = ({ children }) => {
+  const { data, isLoading, error } = useGetTodosQuery();
+  console.log(data);
+  console.log(error);
+  const todosArr = data?.todos;
+
   const [tasks, setTasks] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
 
@@ -63,7 +69,7 @@ const Provider = ({ children }) => {
   };
 
   const addInline = (id) => {
-    const updatedTasks = tasks.map((task) =>
+    const updatedTasks = todosArr.map((task) =>
       task._id === id ? { ...task, isCompleted: !task.isCompleted } : task
     );
     setTasks(updatedTasks);
@@ -101,18 +107,11 @@ const Provider = ({ children }) => {
     });
   };
 
-  const getTasks = () => {
-    const tasks = JSON.parse(localStorage.getItem("tasks"));
-    if (tasks) {
-      setTasks(tasks);
-    }
-  };
-
   const sharedVaribles = {
+    todosArr,
     tasks,
     filteredTasks,
     addTask,
-    getTasks,
     editTask,
     addInline,
     showUncompletedTasks,
@@ -128,5 +127,5 @@ const Provider = ({ children }) => {
     </TodoContext.Provider>
   );
 };
-export { Provider };
+export { TodoProvider };
 export default TodoContext;

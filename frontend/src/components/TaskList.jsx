@@ -6,7 +6,7 @@ import { useContext } from "react";
 import * as Icon from "react-bootstrap-icons";
 const TaskList = () => {
   const {
-    filteredTasks,
+    todosArr,
     showUncompletedTasks,
     showCompletedTasks,
     showAllTasks,
@@ -89,7 +89,7 @@ const TaskList = () => {
         </div>
       </div>
       <div>
-        {filteredTasks?.map((task) => (
+        {todosArr?.map((task) => (
           <TaskItem
             key={task._id}
             _id={task._id}
