@@ -5,14 +5,7 @@ import TodoContext from "../context/todos";
 import { useContext } from "react";
 import * as Icon from "react-bootstrap-icons";
 const TaskList = () => {
-  const {
-    todosArr,
-    showUncompletedTasks,
-    showCompletedTasks,
-    showAllTasks,
-    showImportantTasks,
-    showUnimportantTasks,
-  } = useContext(TodoContext);
+  const { tasks } = useContext(TodoContext);
 
   return (
     <>
@@ -26,11 +19,7 @@ const TaskList = () => {
               </Tooltip>
             }
           >
-            <Button
-              onClick={showAllTasks}
-              variant="outline-secondary"
-              className="me-5"
-            >
+            <Button variant="outline-secondary" className="me-5">
               <Icon.ListUl width="35" height="30" />
             </Button>
           </OverlayTrigger>
@@ -43,7 +32,7 @@ const TaskList = () => {
               </Tooltip>
             }
           >
-            <Button onClick={showImportantTasks} variant="outline-danger">
+            <Button variant="outline-danger">
               <Icon.SortDown width="35" height="30" />
             </Button>
           </OverlayTrigger>
@@ -56,7 +45,7 @@ const TaskList = () => {
               </Tooltip>
             }
           >
-            <Button onClick={showUnimportantTasks} variant="outline-success">
+            <Button variant="outline-success">
               <Icon.SortUpAlt width="35" height="30" />
             </Button>
           </OverlayTrigger>
@@ -69,7 +58,7 @@ const TaskList = () => {
               </Tooltip>
             }
           >
-            <Button onClick={showUncompletedTasks} variant="outline-primary">
+            <Button variant="outline-primary">
               <Icon.Square width="35" height="30" />
             </Button>
           </OverlayTrigger>
@@ -82,14 +71,14 @@ const TaskList = () => {
               </Tooltip>
             }
           >
-            <Button onClick={showCompletedTasks} variant="outline-primary">
+            <Button variant="outline-primary">
               <Icon.CheckSquare width="35" height="30" />
             </Button>
           </OverlayTrigger>
         </div>
       </div>
       <div>
-        {todosArr?.map((task) => (
+        {tasks?.map((task) => (
           <TaskItem
             key={task._id}
             _id={task._id}

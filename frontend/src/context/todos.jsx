@@ -1,30 +1,27 @@
 import { createContext, useState, useEffect } from "react";
-import { useGetTodosQuery } from "./../slices/todoApiSlice";
+import { useGetTodosQuery, useAddTodoMutation } from "./../slices/todoApiSlice";
 
 const TodoContext = createContext();
 
 const TodoProvider = ({ children }) => {
   const { data, isLoading, error } = useGetTodosQuery();
-  console.log(data);
-  console.log(error);
   const todosArr = data?.todos;
 
+  const [addTo] = useAddTodoMutation();
+  console.log(`addTo: ${addTo}`);
+
   const [tasks, setTasks] = useState([]);
-  const [filteredTasks, setFilteredTasks] = useState([]);
-
   useEffect(() => {
-    setFilteredTasks(tasks);
-  }, [tasks]);
+    setTasks(todosArr);
+  }, [todosArr]);
 
-  const addTask = (e) => {
+  const addTask = async (e) => {
     e.preventDefault();
-    const _id = Math.floor(Math.random() * 10000) + 1;
     const title = e.target.form[0].value;
     const description = e.target.form[1].value;
     const expirationDate = e.target.form[2].value;
     const priority = e.target.form[3].value;
     const newTask = {
-      _id,
       title,
       description,
       expirationDate,
@@ -32,16 +29,18 @@ const TodoProvider = ({ children }) => {
       isCompleted: false,
     };
 
-    const updatedTasks = [...tasks, newTask];
-    const sorted = sortByExpirationDate(updatedTasks);
-    setTasks(sorted);
-    localStorage.setItem("tasks", JSON.stringify(sorted));
+    try {
+      const { data: addedTask } = await addTo(newTask);
+      const updatedTasks = [...tasks, addedTask];
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error("Failed to add task:", error);
+    }
   };
   const deleteTask = (e) => {
     const id = e.target.value;
     const updatedTasks = tasks.filter((task) => task._id !== parseInt(id));
     setTasks(updatedTasks);
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   };
 
   const editTask = (e) => {
@@ -63,63 +62,22 @@ const TodoProvider = ({ children }) => {
       }
       return task;
     });
-    const sorted = sortByExpirationDate(updatedTasks);
-    setTasks(sorted);
-    localStorage.setItem("tasks", JSON.stringify(sorted));
+    setTasks(updatedTasks);
   };
 
   const addInline = (id) => {
-    const updatedTasks = todosArr.map((task) =>
+    const updatedTasks = tasks.map((task) =>
       task._id === id ? { ...task, isCompleted: !task.isCompleted } : task
     );
     setTasks(updatedTasks);
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
-  };
-
-  const showUncompletedTasks = () => {
-    const uncompletedTasks = tasks.filter((task) => !task.isCompleted);
-    setFilteredTasks(uncompletedTasks);
-  };
-
-  const showCompletedTasks = () => {
-    const completedTasks = tasks.filter((task) => task.isCompleted);
-    setFilteredTasks(completedTasks);
-  };
-
-  const showImportantTasks = () => {
-    tasks.sort((a, b) => b.priority - a.priority);
-    setFilteredTasks([...tasks]);
-  };
-
-  const showUnimportantTasks = () => {
-    tasks.sort((a, b) => a.priority - b.priority);
-    setFilteredTasks([...tasks]);
-  };
-
-  const showAllTasks = () => {
-    const sorted = sortByExpirationDate(tasks);
-    setFilteredTasks(sorted);
-  };
-
-  const sortByExpirationDate = (tasks) => {
-    return tasks.sort((a, b) => {
-      return new Date(a.expirationDate) - new Date(b.expirationDate);
-    });
   };
 
   const sharedVaribles = {
-    todosArr,
     tasks,
-    filteredTasks,
     addTask,
     editTask,
     addInline,
-    showUncompletedTasks,
-    showCompletedTasks,
-    showAllTasks,
     deleteTask,
-    showImportantTasks,
-    showUnimportantTasks,
   };
   return (
     <TodoContext.Provider value={sharedVaribles}>
