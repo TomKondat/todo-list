@@ -41,9 +41,9 @@ const TaskItem = ({
           checked={isCompleted}
           aria-label="Checkbox for following text input"
           className={
-            priority === "1"
+            priority === "Not Important"
               ? "accordion-style-not-important"
-              : priority === "2"
+              : priority === "Important"
               ? "accordion-style-important "
               : "accordion-style-very-important "
           }
@@ -52,9 +52,9 @@ const TaskItem = ({
         <Accordion
           defaultActiveKey="1"
           className={
-            priority === "1"
+            priority === "Not Important"
               ? "accordion-style-not-important custom-accordion"
-              : priority === "2"
+              : priority === "Important"
               ? "accordion-style-important custom-accordion"
               : "accordion-style-very-important custom-accordion"
           }
@@ -65,9 +65,9 @@ const TaskItem = ({
             >
               <strong
                 className={
-                  priority === "1"
+                  priority === "Not Important"
                     ? "not-important"
-                    : priority === "2"
+                    : priority === "Important"
                     ? "important"
                     : "very-important"
                 }
@@ -78,9 +78,9 @@ const TaskItem = ({
             <Accordion.Body>
               <p>
                 <strong>Priority: </strong>
-                {priority === "1"
+                {priority === "Not Important"
                   ? "Not Important"
-                  : priority === "2"
+                  : priority === "Important"
                   ? "Important"
                   : "Very Important"}
               </p>
