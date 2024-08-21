@@ -1,20 +1,23 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-export const todoApiSlice = createApi({
-  reducerPath: "todos",
-  baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
+import { TODO_URL } from "./urlConstrains";
+import { apiSlice } from "./apiSlice";
+
+export const todoApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getTodos: builder.query({
-      query: () => "todos",
+      query: () => ({
+        url: TODO_URL,
+      }),
     }),
     getTodosById: builder.query({
       query: (todoId) => ({
-        url: `/todos/${todoId}`,
+        url: `${TODO_URL}/${todoId}`,
       }),
     }),
     addTodo: builder.mutation({
       query: (data) => ({
-        url: `/todos`,
+        url: TODO_URL,
         method: "POST",
         body: data,
       }),
