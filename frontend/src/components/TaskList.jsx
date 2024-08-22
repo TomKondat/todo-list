@@ -10,6 +10,9 @@ const TaskList = () => {
 
   return (
     <>
+      <div className="header-title">
+        <h1>My Todos</h1>
+      </div>
       <div className="adjust-center">
         <div className="custom-nav">
           <OverlayTrigger

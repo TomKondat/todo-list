@@ -8,7 +8,7 @@ import {
   Button,
   Container,
 } from "react-bootstrap";
-
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import Aside from "./Aside";
 
@@ -30,7 +30,9 @@ const Header = () => {
               alt="React Bootstrap logo"
             />
           </Navbar.Brand>
-          <Navbar.Brand>Todo List</Navbar.Brand>
+          <Nav.Link as={Link} to="/">
+            <Navbar.Brand>Todo List</Navbar.Brand>
+          </Nav.Link>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -38,38 +40,34 @@ const Header = () => {
               style={{ maxHeight: "100px" }}
               navbarScroll
             ></Nav>
-            <OverlayTrigger
-              placement="bottom"
-              overlay={
-                <Tooltip id="tooltip-all" className="custom-tooltip">
-                  Add New Todo
-                </Tooltip>
-              }
-            >
-              <Button onClick={handleShow} variant="light" className="me-lg-5">
-                <img
-                  src="https://cdn2.iconfinder.com/data/icons/interface-solid-7/30/interface-solid-task-add-512.png"
-                  width="35"
-                  height="35"
-                />
-              </Button>
-            </OverlayTrigger>
 
-            <Form className="d-flex">
-              <Form.Control
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-              />
-              <Button variant="outline-success">Search</Button>
-            </Form>
+            <Nav>
+              <OverlayTrigger
+                placement="bottom"
+                overlay={
+                  <Tooltip id="tooltip-all" className="custom-tooltip">
+                    Add New Todo
+                  </Tooltip>
+                }
+              >
+                <Button onClick={handleShow} variant="light">
+                  <img
+                    src="https://cdn2.iconfinder.com/data/icons/interface-solid-7/30/interface-solid-task-add-512.png"
+                    width="35"
+                    height="35"
+                  />
+                </Button>
+              </OverlayTrigger>
+              <Nav.Link as={Link} to="/login">
+                <Button variant="light">Login</Button>
+              </Nav.Link>
+              <Nav.Link as={Link} to="/register">
+                <Button variant="light">Register</Button>
+              </Nav.Link>
+            </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <div className="header-title">
-        <h1>My Todos</h1>
-      </div>
 
       <Aside show={show} handleClose={handleClose} />
     </>
