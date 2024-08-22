@@ -9,6 +9,7 @@ const userApiSlice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: 5,
     }),
+
     getUserById: buider.query({
       query: (userId) => ({
         url: `${USER_URL}/${userId}`,
@@ -16,6 +17,7 @@ const userApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: 5,
       provideTags: ["User"],
     }),
+
     register: buider.mutation({
       query: (data) => ({
         url: `${USER_URL}/register`,
@@ -23,10 +25,19 @@ const userApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
-    /*  apiLogin:,
-        apiLogout:
-         */
+
+    login: buider.mutation({
+      query: (data) => ({
+        url: `${USER_URL}/login`,
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
-export const { useGetUsersQuery, useGetUserByIdQuery, useRegisterMutation } =
-  userApiSlice;
+export const {
+  useGetUsersQuery,
+  useGetUserByIdQuery,
+  useRegisterMutation,
+  useLoginMutation,
+} = userApiSlice;
