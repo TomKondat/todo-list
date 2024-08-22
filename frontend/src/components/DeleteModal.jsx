@@ -3,8 +3,14 @@ import "./styles.css";
 import Button from "react-bootstrap/esm/Button";
 import Modal from "react-bootstrap/Modal";
 import * as Icon from "react-bootstrap-icons";
+import { useDeleteTodoMutation } from "../slices/todoApiSlice";
 
 const DeleteModal = ({ show, handleClose, _id }) => {
+  const [deleteTodo] = useDeleteTodoMutation();
+
+  const handleDelete = async () => {
+    await deleteTodo(_id);
+  };
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -18,7 +24,7 @@ const DeleteModal = ({ show, handleClose, _id }) => {
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="danger" onClick={() => {}} value={_id}>
+        <Button variant="danger" onClick={handleDelete}>
           Delete Task
         </Button>
       </Modal.Footer>
