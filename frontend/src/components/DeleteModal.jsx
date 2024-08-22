@@ -3,12 +3,8 @@ import "./styles.css";
 import Button from "react-bootstrap/esm/Button";
 import Modal from "react-bootstrap/Modal";
 import * as Icon from "react-bootstrap-icons";
-import { useContext } from "react";
-import TodoContext from "../context/todos";
 
 const DeleteModal = ({ show, handleClose, _id }) => {
-  const { deleteTask } = useContext(TodoContext);
-
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -22,7 +18,7 @@ const DeleteModal = ({ show, handleClose, _id }) => {
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="danger" onClick={deleteTask} value={_id}>
+        <Button variant="danger" onClick={() => {}} value={_id}>
           Delete Task
         </Button>
       </Modal.Footer>

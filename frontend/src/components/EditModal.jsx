@@ -3,14 +3,9 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import * as Icon from "react-bootstrap-icons";
-import { useContext } from "react";
-import TodoContext from "../context/todos";
 
 const EditModal = ({ showEditModal, handleCloseEditModal, _id }) => {
-  const { editTask } = useContext(TodoContext);
-
   const handleSaveChanges = (e) => {
-    editTask(e);
     handleCloseEditModal();
   };
   return (

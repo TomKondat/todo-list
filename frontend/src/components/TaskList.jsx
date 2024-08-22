@@ -1,11 +1,12 @@
 import React from "react";
 import TaskItem from "./TaskItem";
 import { Button, Tooltip, OverlayTrigger } from "react-bootstrap";
-import TodoContext from "../context/todos";
-import { useContext } from "react";
 import * as Icon from "react-bootstrap-icons";
+import { useGetTodosQuery } from "./../slices/todoApiSlice";
+
 const TaskList = () => {
-  const { tasks } = useContext(TodoContext);
+  const { data, isLoading, error } = useGetTodosQuery();
+  const todosArr = data?.todos;
 
   return (
     <>
@@ -78,7 +79,7 @@ const TaskList = () => {
         </div>
       </div>
       <div>
-        {tasks?.map((task) => (
+        {todosArr?.map((task) => (
           <TaskItem
             key={task._id}
             _id={task._id}
