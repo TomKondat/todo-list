@@ -9,6 +9,7 @@ export const todoApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: TODO_URL,
       }),
+      providesTags: ["Todo"],
     }),
     getTodosById: builder.query({
       query: (todoId) => ({
@@ -21,6 +22,7 @@ export const todoApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["Todo"],
     }),
   }),
 });
