@@ -1,12 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import { useEditTodoMutation } from "../slices/todoApiSlice";
 import * as Icon from "react-bootstrap-icons";
+import { format } from "date-fns";
 
-const EditModal = ({ showEditModal, handleCloseEditModal, _id }) => {
-  const handleSaveChanges = (e) => {
-    handleCloseEditModal();
+const EditModal = ({
+  showEditModal,
+  handleCloseEditModal,
+  _id,
+  prevTitle,
+  prevDescription,
+  prevExpirationDate,
+  prevPriority,
+}) => {
+  const [title, setTitle] = useState(prevTitle);
+  const [description, setDescription] = useState(prevDescription);
+  const [expirationDate, setExpirationDate] = useState(
+    format(new Date(prevExpirationDate), "yyyy-MM-dd")
+  );
+  const [priority, setPriority] = useState(prevPriority);
+
+  useEffect(() => {
+    setTitle(prevTitle);
+    setDescription(prevDescription);
+    setExpirationDate(format(new Date(prevExpirationDate), "yyyy-MM-dd"));
+    setPriority(prevPriority);
+  }, [prevTitle, prevDescription, prevExpirationDate, prevPriority]);
+
+  const [editTodo] = useEditTodoMutation();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await editTodo({
+        data: {
+          title,
+          description,
+          expirationDate,
+          priority,
+        },
+        todoId: _id,
+      }).unwrap();
+    } catch (err) {
+      console.error("Failed to edit the todo: ", err);
+    }
   };
   return (
     <Modal show={showEditModal} onHide={handleCloseEditModal}>
@@ -18,10 +56,16 @@ const EditModal = ({ showEditModal, handleCloseEditModal, _id }) => {
       </Modal.Header>
       <Modal.Body>
         {/* form */}
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="titleId">
             <Form.Label>Task Title</Form.Label>
-            <Form.Control type="text" placeholder="Enter title" required />
+            <Form.Control
+              type="text"
+              placeholder="Enter title"
+              required
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="descId">
@@ -31,16 +75,28 @@ const EditModal = ({ showEditModal, handleCloseEditModal, _id }) => {
               rows={4}
               placeholder="Enter description"
               required
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="expirationDateId">
             <Form.Label>Expiration Date</Form.Label>
-            <Form.Control type="date" placeholder="Enter date" required />
+            <Form.Control
+              type="date"
+              placeholder="Enter date"
+              required
+              value={expirationDate}
+              onChange={(e) => setExpirationDate(e.target.value)}
+            />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="priorityId">
-            <Form.Select aria-label="Default select example">
+            <Form.Select
+              aria-label="Default select example"
+              value={priority}
+              onChange={(e) => setPriority(e.target.value)}
+            >
               <option value="1">Not Important</option>
               <option value="2">Important</option>
               <option value="3">Very Important</option>
@@ -50,7 +106,11 @@ const EditModal = ({ showEditModal, handleCloseEditModal, _id }) => {
             <Button variant="secondary" onClick={handleCloseEditModal}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleSaveChanges} value={_id}>
+            <Button
+              variant="primary"
+              type="submit"
+              onClick={handleCloseEditModal}
+            >
               Save Changes
             </Button>
           </Modal.Footer>

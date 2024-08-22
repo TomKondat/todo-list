@@ -11,11 +11,13 @@ export const todoApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ["Todo"],
     }),
+
     getTodosById: builder.query({
       query: (todoId) => ({
         url: `${TODO_URL}/${todoId}`,
       }),
     }),
+
     addTodo: builder.mutation({
       query: (data) => ({
         url: TODO_URL,
@@ -24,7 +26,20 @@ export const todoApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Todo"],
     }),
+
+    editTodo: builder.mutation({
+      query: ({ data, todoId }) => ({
+        url: `${TODO_URL}/${todoId}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["Todo"],
+    }),
   }),
 });
-export const { useGetTodosQuery, useGetTodosByIdQuery, useAddTodoMutation } =
-  todoApiSlice;
+export const {
+  useGetTodosQuery,
+  useGetTodosByIdQuery,
+  useAddTodoMutation,
+  useEditTodoMutation,
+} = todoApiSlice;

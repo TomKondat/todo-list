@@ -106,6 +106,10 @@ const TaskItem = ({
         showEditModal={showEditModal}
         handleCloseEditModal={handleCloseEditModal}
         _id={_id}
+        prevTitle={title}
+        prevDescription={description}
+        prevExpirationDate={expirationDate}
+        prevPriority={priority}
       />
     </>
   );
