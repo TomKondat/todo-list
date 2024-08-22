@@ -15,13 +15,21 @@ const TaskForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await addTodo({
-      title,
-      description,
-      expirationDate,
-      priority,
-    }).unwrap();
-    console.log(res);
+    try {
+      await addTodo({
+        title,
+        description,
+        expirationDate,
+        priority,
+      }).unwrap();
+
+      setTitle("");
+      setDescription("");
+      setExpirationDate("");
+      setPriority("Not Important");
+    } catch (err) {
+      console.error("Failed to save the todo: ", err);
+    }
   };
 
   return (
