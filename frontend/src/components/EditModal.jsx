@@ -97,9 +97,9 @@ const EditModal = ({
               value={priority}
               onChange={(e) => setPriority(e.target.value)}
             >
-              <option value="1">Not Important</option>
-              <option value="2">Important</option>
-              <option value="3">Very Important</option>
+              <option value="Not Important">Not Important</option>
+              <option value="Important">Important</option>
+              <option value="Very Important">Very Important</option>
             </Form.Select>
           </Form.Group>
           <Modal.Footer>
