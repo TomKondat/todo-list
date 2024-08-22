@@ -58,3 +58,18 @@ exports.deleteTodoById = asyncHandler(async (req, res, next) => {
     message: "Todo deleted successfully",
   });
 });
+
+exports.changeIsCompleted = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+
+  const todo = await Todo.findById(id);
+  if (!todo) {
+    return next(new AppError(404, "No todo found with that ID"));
+  }
+  todo.isCompleted = !todo.isCompleted;
+  const updatedTodo = await todo.save();
+  res.status(200).json({
+    status: "success",
+    updatedTodo,
+  });
+});

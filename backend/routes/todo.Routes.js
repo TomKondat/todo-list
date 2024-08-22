@@ -10,7 +10,8 @@ router
 
 router
   .route("/:id")
-  .patch(todoControllers.editTodoById)
+  .post(todoControllers.editTodoById)
+  .patch(todoControllers.changeIsCompleted)
   .delete(todoControllers.deleteTodoById);
 
 module.exports = router;

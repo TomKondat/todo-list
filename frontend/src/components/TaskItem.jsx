@@ -7,6 +7,7 @@ import { useState } from "react";
 import DeleteModal from "./DeleteModal";
 import * as Icon from "react-bootstrap-icons";
 import EditModal from "./EditModal";
+import { useSetIsCompletedMutation } from "../slices/todoApiSlice";
 
 const TaskItem = ({
   _id,
@@ -27,8 +28,11 @@ const TaskItem = ({
   const handleCloseEditModal = () => setShowEditModal(false);
   const handleShowEditModal = () => setShowEditModal(true);
   //-----------------------------------
-  const handleComplete = () => {
-    // addInline(_id);
+
+  const [setIsCompleted] = useSetIsCompletedMutation();
+
+  const handleComplete = async () => {
+    await setIsCompleted(_id);
   };
   return (
     <>
