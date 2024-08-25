@@ -33,6 +33,13 @@ const userApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+
+    logout: buider.mutation({
+      query: () => ({
+        url: `${USER_URL}/logout`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 export const {
@@ -40,4 +47,5 @@ export const {
   useGetUserByIdQuery,
   useRegisterMutation,
   useLoginMutation,
+  useLogoutMutation,
 } = userApiSlice;

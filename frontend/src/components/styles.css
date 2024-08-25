@@ -78,3 +78,10 @@
   color: gray;
   border: 1px solid darkgray;
 }
+
+.username {
+  color: black;
+  font-size: 25px;
+  text-transform: uppercase;
+  margin: 10px;
+}

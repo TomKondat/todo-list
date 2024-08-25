@@ -1,22 +1,31 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Button, Form, Alert } from "react-bootstrap";
 import { useLoginMutation } from "../slices/userApiSlice";
 import { useNavigate } from "react-router-dom";
+import { setUserInfoOnLogin } from "../slices/authSlice";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const [login] = useLoginMutation();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await login({
+      const res = await login({
         email,
         password,
       }).unwrap();
+      console.log(`res`, res);
+
+      dispatch(setUserInfoOnLogin({ ...res }));
       setSuccessMessage("Login successful!");
       setErrorMessage("");
       setTimeout(() => {

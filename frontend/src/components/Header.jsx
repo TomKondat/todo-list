@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
-  Form,
   Tooltip,
   OverlayTrigger,
   Nav,
@@ -11,11 +10,21 @@ import {
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Aside from "./Aside";
+import LogouteModal from "./LogoutModal";
 
 const Header = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [showModal, setShowModal] = useState(false);
+  const handleCloseModal = () => setShowModal(false);
+  const handleShowModal = () => setShowModal(true);
+
+  let username = localStorage.getItem("userInfo");
+
+  if (username) {
+    username = username.replace(/^"|"$/g, "");
+  }
 
   return (
     <>
@@ -42,33 +51,49 @@ const Header = () => {
             ></Nav>
 
             <Nav>
-              <OverlayTrigger
-                placement="bottom"
-                overlay={
-                  <Tooltip id="tooltip-all" className="custom-tooltip">
-                    Add New Todo
-                  </Tooltip>
-                }
-              >
-                <Button onClick={handleShow} variant="light">
-                  <img
-                    src="https://cdn2.iconfinder.com/data/icons/interface-solid-7/30/interface-solid-task-add-512.png"
-                    width="35"
-                    height="35"
-                  />
-                </Button>
-              </OverlayTrigger>
-              <Nav.Link as={Link} to="/login">
-                <Button variant="light">Login</Button>
-              </Nav.Link>
-              <Nav.Link as={Link} to="/register">
-                <Button variant="light">Register</Button>
-              </Nav.Link>
+              {!username ? (
+                <>
+                  <Nav.Link as={Link} to="/register">
+                    <Button variant="light">Register</Button>
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/login">
+                    <Button variant="light">Login</Button>
+                  </Nav.Link>
+                </>
+              ) : (
+                <>
+                  <OverlayTrigger
+                    placement="bottom"
+                    overlay={
+                      <Tooltip id="tooltip-all" className="custom-tooltip">
+                        Add New Todo
+                      </Tooltip>
+                    }
+                  >
+                    <Nav.Link>
+                      <Button onClick={handleShow} variant="light">
+                        <img
+                          src="https://cdn2.iconfinder.com/data/icons/interface-solid-7/30/interface-solid-task-add-512.png"
+                          width="30"
+                          height="30"
+                        />
+                      </Button>
+                    </Nav.Link>
+                  </OverlayTrigger>
+                  <p className="username"> {username}</p>
+                  <Nav.Link>
+                    <Button onClick={handleShowModal} variant="outline-danger">
+                      Logout
+                    </Button>
+                  </Nav.Link>
+                </>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
 
+      <LogouteModal showModal={showModal} handleCloseModal={handleCloseModal} />
       <Aside show={show} handleClose={handleClose} />
     </>
   );
