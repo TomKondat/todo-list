@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import Aside from "./Aside";
 import LogouteModal from "./LogoutModal";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [show, setShow] = useState(false);
@@ -20,12 +21,7 @@ const Header = () => {
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
 
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-  let username = userInfo ? userInfo.username : null;
-
-  if (username) {
-    username = username.replace(/^"|"$/g, "");
-  }
+  const username = useSelector((state) => state.auth.user?.username);
 
   return (
     <>

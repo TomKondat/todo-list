@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useAddTodoMutation } from "../slices/todoApiSlice";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const TaskForm = () => {
   const [title, setTitle] = useState("");
@@ -12,8 +13,7 @@ const TaskForm = () => {
 
   const [addTodo] = useAddTodoMutation();
 
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-  const userId = userInfo ? userInfo.userId : null;
+  const userId = useSelector((state) => state.auth.user?.userId);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

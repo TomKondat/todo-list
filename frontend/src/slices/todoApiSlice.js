@@ -1,5 +1,3 @@
-// Need to use the React-specific entry point to import createApi
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { TODO_URL } from "./urlConstrains";
 import { apiSlice } from "./apiSlice";
 
