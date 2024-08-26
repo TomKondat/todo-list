@@ -10,6 +10,11 @@ const todoSchema = new mongoose.Schema({
     },
     default: "Not Important",
   },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: [true, "Todo must have an user"],
+  },
   expirationDate: { type: Date, required: true },
   description: { type: String, required: true },
   isCompleted: { type: Boolean, default: false },

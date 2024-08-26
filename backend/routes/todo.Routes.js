@@ -12,6 +12,7 @@ router
   .route("/:id")
   .post(todoControllers.editTodoById)
   .patch(todoControllers.changeIsCompleted)
-  .delete(todoControllers.deleteTodoById);
+  .delete(todoControllers.deleteTodoById)
+  .get(todoControllers.getUserTodos);
 
 module.exports = router;

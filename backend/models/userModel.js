@@ -3,45 +3,58 @@ const validator = require("validator");
 const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
 
-const userSchema = new mongoose.Schema({
-  username: { type: String, required: true },
-  email: {
-    type: String,
-    required: true["The user must have an email"],
-    validate: {
-      validator: function () {
-        return validator.isEmail(this.email);
+const userSchema = new mongoose.Schema(
+  {
+    username: { type: String, required: true },
+    email: {
+      type: String,
+      required: true["The user must have an email"],
+      validate: {
+        validator: function () {
+          return validator.isEmail(this.email);
+        },
       },
     },
-  },
-  password: {
-    type: String,
-    minLength: [8, "8 characthers or above"],
-    select: false,
-    required: [true, "The user must have a password"],
-  },
-  confirmPassword: {
-    type: String,
-    minLength: [8, "8 characthers or above"],
-    required: [true, "The user must retype the password"],
-    validate: {
-      validator: function (el) {
-        return this.password === el;
+    password: {
+      type: String,
+      minLength: [8, "8 characthers or above"],
+      select: false,
+      required: [true, "The user must have a password"],
+    },
+    confirmPassword: {
+      type: String,
+      minLength: [8, "8 characthers or above"],
+      required: [true, "The user must retype the password"],
+      validate: {
+        validator: function (el) {
+          return this.password === el;
+        },
+        message: "Passwords are not the same",
       },
-      message: "Passwords are not the same",
     },
-  },
-  role: {
-    type: String,
-    enum: {
-      values: ["free", "premium", "admin"],
-      message: "Role is either: free, premium, or admin",
+    role: {
+      type: String,
+      enum: {
+        values: ["free", "premium", "admin"],
+        message: "Role is either: free, premium, or admin",
+      },
+      default: "free",
     },
-    default: "free",
+
+    passwordResetToken: String,
+    passwordResetExpires: Date,
+    passwordChangedAt: Date,
   },
-  passwordResetToken: String,
-  passwordResetExpires: Date,
-  passwordChangedAt: Date,
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
+);
+
+userSchema.virtual("todos", {
+  ref: "Todo",
+  localField: "_id",
+  foreignField: "user",
 });
 
 userSchema.pre("save", async function (next) {

@@ -10,9 +10,21 @@ exports.getTodos = asyncHandler(async (req, res, next) => {
   });
 });
 
+exports.getUserTodos = asyncHandler(async (req, res, next) => {
+  const { id: userId } = req.params;
+  if (!userId) {
+    return next(new AppError(400, "Please provide the user id"));
+  }
+  const todos = await Todo.find({ user: userId });
+  res.status(200).json({
+    status: "success",
+    todos,
+  });
+});
+
 exports.createTodo = asyncHandler(async (req, res, next) => {
-  const { title, priority, expirationDate, description } = req.body;
-  if (!title || !priority || !expirationDate || !description) {
+  const { title, priority, expirationDate, description, user } = req.body;
+  if (!title || !priority || !expirationDate || !description || !user) {
     return next(new AppError(400, "Please provide all the required fields"));
   }
   const todo = await Todo.create({
@@ -20,6 +32,7 @@ exports.createTodo = asyncHandler(async (req, res, next) => {
     priority,
     expirationDate,
     description,
+    user,
   });
   res.status(200).json({
     status: "success",
