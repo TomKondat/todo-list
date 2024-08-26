@@ -12,6 +12,9 @@ const TaskForm = () => {
 
   const [addTodo] = useAddTodoMutation();
 
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userId = userInfo ? userInfo.userId : null;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -21,6 +24,7 @@ const TaskForm = () => {
         description,
         expirationDate,
         priority,
+        user: userId,
       }).unwrap();
 
       setTitle("");

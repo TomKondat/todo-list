@@ -2,10 +2,16 @@ import React from "react";
 import TaskItem from "./TaskItem";
 import { Button, Tooltip, OverlayTrigger } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
-import { useGetTodosQuery } from "./../slices/todoApiSlice";
+import {
+  useGetTodosQuery,
+  useGetUserTodosQuery,
+} from "./../slices/todoApiSlice";
 
 const TaskList = () => {
-  const { data, isLoading, error } = useGetTodosQuery();
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userId = userInfo ? userInfo.userId : null;
+
+  const { data } = useGetUserTodosQuery(userId);
   const todosArr = data?.todos;
 
   return (

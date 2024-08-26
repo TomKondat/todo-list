@@ -12,6 +12,13 @@ export const todoApiSlice = apiSlice.injectEndpoints({
       providesTags: ["Todo"],
     }),
 
+    getUserTodos: builder.query({
+      query: (userId) => ({
+        url: `${TODO_URL}/${userId}`,
+      }),
+      providesTags: ["Todo"],
+    }),
+
     getTodosById: builder.query({
       query: (todoId) => ({
         url: `${TODO_URL}/${todoId}`,
@@ -55,6 +62,7 @@ export const todoApiSlice = apiSlice.injectEndpoints({
 });
 export const {
   useGetTodosQuery,
+  useGetUserTodosQuery,
   useGetTodosByIdQuery,
   useAddTodoMutation,
   useEditTodoMutation,

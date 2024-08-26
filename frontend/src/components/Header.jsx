@@ -20,7 +20,8 @@ const Header = () => {
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
 
-  let username = localStorage.getItem("userInfo");
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  let username = userInfo ? userInfo.username : null;
 
   if (username) {
     username = username.replace(/^"|"$/g, "");

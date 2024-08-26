@@ -12,7 +12,13 @@ const authSlice = createSlice({
     setUserInfoOnLogin: (state, action) => {
       console.log(action);
       state.userInfo = action.payload;
-      localStorage.setItem("userInfo", JSON.stringify(action.payload.username));
+      localStorage.setItem(
+        "userInfo",
+        JSON.stringify({
+          username: action.payload.username,
+          userId: action.payload.userId,
+        })
+      );
     },
     logoutUser: (state, action) => {
       state.userInfo = null;

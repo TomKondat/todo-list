@@ -53,6 +53,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     status: "success",
     token,
     username: user.username,
+    userId: user._id,
   });
 });
 
