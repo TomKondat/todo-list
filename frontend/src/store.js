@@ -33,6 +33,6 @@ const store = configureStore({
   devTools: true,
 });
 
-store.subscribe(() => saveToLocalStorage(store.getState().auth));
+store.subscribe(() => saveToLocalStorage(store.getState()));
 
 export default store;

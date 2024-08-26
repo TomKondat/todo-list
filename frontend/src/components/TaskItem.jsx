@@ -8,7 +8,6 @@ import DeleteModal from "./DeleteModal";
 import * as Icon from "react-bootstrap-icons";
 import EditModal from "./EditModal";
 import { useSetIsCompletedMutation } from "../slices/todoApiSlice";
-import { useSelector } from "react-redux";
 
 const TaskItem = ({
   _id,
@@ -18,7 +17,6 @@ const TaskItem = ({
   priority,
   isCompleted,
 }) => {
-  const user = useSelector((state) => state.auth?.user);
   //delete modal states
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -38,97 +36,84 @@ const TaskItem = ({
   };
   return (
     <>
-      {user ? (
-        <>
-          <InputGroup className="mb-3">
-            <InputGroup.Checkbox
-              onChange={handleComplete}
-              checked={isCompleted}
-              aria-label="Checkbox for following text input"
-              className={
-                priority === "Not Important"
-                  ? "accordion-style-not-important"
-                  : priority === "Important"
-                  ? "accordion-style-important "
-                  : "accordion-style-very-important "
-              }
-            />
+      <InputGroup className="mb-3">
+        <InputGroup.Checkbox
+          onChange={handleComplete}
+          checked={isCompleted}
+          aria-label="Checkbox for following text input"
+          className={
+            priority === "Not Important"
+              ? "accordion-style-not-important"
+              : priority === "Important"
+              ? "accordion-style-important "
+              : "accordion-style-very-important "
+          }
+        />
 
-            <Accordion
-              defaultActiveKey="1"
-              className={
-                priority === "Not Important"
-                  ? "accordion-style-not-important custom-accordion"
-                  : priority === "Important"
-                  ? "accordion-style-important custom-accordion"
-                  : "accordion-style-very-important custom-accordion"
-              }
+        <Accordion
+          defaultActiveKey="1"
+          className={
+            priority === "Not Important"
+              ? "accordion-style-not-important custom-accordion"
+              : priority === "Important"
+              ? "accordion-style-important custom-accordion"
+              : "accordion-style-very-important custom-accordion"
+          }
+        >
+          <Accordion.Item eventKey="0">
+            <Accordion.Header
+              className={isCompleted ? "completed-task" : "uncompleted-task"}
             >
-              <Accordion.Item eventKey="0">
-                <Accordion.Header
-                  className={
-                    isCompleted ? "completed-task" : "uncompleted-task"
-                  }
-                >
-                  <strong
-                    className={
-                      priority === "Not Important"
-                        ? "not-important"
-                        : priority === "Important"
-                        ? "important"
-                        : "very-important"
-                    }
-                  >
-                    {title}
-                  </strong>
-                </Accordion.Header>
-                <Accordion.Body>
-                  <p>
-                    <strong>Priority: </strong>
-                    {priority === "Not Important"
-                      ? "Not Important"
-                      : priority === "Important"
-                      ? "Important"
-                      : "Very Important"}
-                  </p>
-                  <p>
-                    <strong>Expiration Date: </strong>
-                    {new Date(expirationDate).toLocaleDateString()}
-                  </p>
-                  <p>
-                    <strong>Description: </strong>
-                    {description}
-                  </p>
-                </Accordion.Body>
-              </Accordion.Item>
-            </Accordion>
+              <strong
+                className={
+                  priority === "Not Important"
+                    ? "not-important"
+                    : priority === "Important"
+                    ? "important"
+                    : "very-important"
+                }
+              >
+                {title}
+              </strong>
+            </Accordion.Header>
+            <Accordion.Body>
+              <p>
+                <strong>Priority: </strong>
+                {priority === "Not Important"
+                  ? "Not Important"
+                  : priority === "Important"
+                  ? "Important"
+                  : "Very Important"}
+              </p>
+              <p>
+                <strong>Expiration Date: </strong>
+                {new Date(expirationDate).toLocaleDateString()}
+              </p>
+              <p>
+                <strong>Description: </strong>
+                {description}
+              </p>
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
 
-            <Button onClick={handleShow} variant="outline-danger">
-              <Icon.Trash />
-            </Button>
-            <Button onClick={handleShowEditModal} variant="outline-secondary">
-              <Icon.Pencil />
-            </Button>
-          </InputGroup>
-          <DeleteModal show={show} handleClose={handleClose} _id={_id} />
-
-          <EditModal
-            showEditModal={showEditModal}
-            handleCloseEditModal={handleCloseEditModal}
-            _id={_id}
-            prevTitle={title}
-            prevDescription={description}
-            prevExpirationDate={expirationDate}
-            prevPriority={priority}
-          />
-        </>
-      ) : (
-        <>
-          <div>
-            <h1>Empty</h1>
-          </div>
-        </>
-      )}
+        <Button onClick={handleShow} variant="outline-danger">
+          <Icon.Trash />
+        </Button>
+        <Button onClick={handleShowEditModal} variant="outline-secondary">
+          <Icon.Pencil />
+        </Button>
+      </InputGroup>
+      <DeleteModal show={show} handleClose={handleClose} _id={_id} />
+      <EditModal
+        showEditModal={showEditModal}
+        handleCloseEditModal={handleCloseEditModal}
+        _id={_id}
+        prevTitle={title}
+        prevDescription={description}
+        prevExpirationDate={expirationDate}
+        prevPriority={priority}
+      />
     </>
   );
 };
